@@ -1,0 +1,17 @@
+services:
+  luxonis:
+    image: husarion/depthai:humble
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+    device_cgroup_rules:
+      - 'c 189:* rmw'
+    command: ros2 launch depthai_ros_driver camera.launch.py
+
+  rviz:
+    image: husarion/rviz2:galactic
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./default.rviz:/root/.rviz2/default.rviz
+    environment:
+      - DISPLAY=${DISPLAY:?err}
+      - LIBGL_ALWAYS_SOFTWARE=1
