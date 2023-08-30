@@ -48,7 +48,7 @@ jobs:
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token:  ${{ secrets.DOCKERHUB_TOKEN }}
-          main_branch_name: ros2
+          main_branch_name: main
           build_type: ${{ inputs.build_type }}
           ros_distro: ${{ matrix.ros_distro }}
           platforms: "linux/amd64, linux/arm64"
