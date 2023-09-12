@@ -3,10 +3,15 @@ services:
     image: husarion/depthai:humble
     volumes:
       - /dev/bus/usb:/dev/bus/usb
+      - ./camera.yaml:/ros2_ws/install/depthai_ros_driver/share/depthai_ros_driver/config/camera.yaml
+      # - ./camera.yaml:/ros2_ws/src/depthai_ros_driver/config/camera.yaml
     device_cgroup_rules:
       - 'c 189:* rmw'
-    command: ros2 launch depthai_ros_driver camera.launch.py
-
+    privileged: true
+    # command: sleep 100000
+    command: ros2 launch depthai_ros_driver camera.launch.py parent_frame:=oak-1-base-frame
+    # command: ros2 launch depthai_examples mobile_publisher.launch.py camera_model:=OAK-1
+#  params_file:=/camera.yaml
   rviz:
     image: husarion/rviz2:galactic
     volumes:
