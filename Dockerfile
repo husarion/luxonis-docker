@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /ros2_ws
 
-ARG DEPTHAI_ROS_RELEASE="v2.7.4-${ROS_DISTRO}"
+ARG DEPTHAI_ROS_RELEASE="v2.8.1-${ROS_DISTRO}"
 
 RUN apt-get update && apt-get install -y \
 		python3-pip \
