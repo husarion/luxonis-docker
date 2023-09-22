@@ -4,18 +4,20 @@ Dockerized `depthai-ros` ROS package ([GitHub repo here](https://github.com/luxo
 
 ## Quick start
 
-Clone this repository:
+1. Connect the camera with the USB cable.
+
+2. Clone this repository:
 ```
 git clone https://github.com/husarion/depthai-docker.git
 cd depthai-docker/demo/oak-1
 ```
 
-Pull necessary docker images:
+3. Pull necessary docker images:
 ```
 docker copmose pull
 ```
 
-Launch it with the RViz:
+4. Launch it with the RViz:
 ```
 xhost +local:docker && docker compose up
 ```
