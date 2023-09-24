@@ -1,0 +1,49 @@
+x-gpu-config:
+  &gpu-config
+  runtime: nvidia
+  environment:
+    - DISPLAY=${DISPLAY:?err}
+    - NVIDIA_VISIBLE_DEVICES=all
+    - NVIDIA_DRIVER_CAPABILITIES=all
+
+x-cpu-config:
+  &cpu-config
+  environment:
+    - DISPLAY=${DISPLAY:?err}
+    - LIBGL_ALWAYS_SOFTWARE=1
+
+services:
+  luxonis:
+    image: husarion/depthai:humble-2.8.1
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ./camera.yaml:/ros2_ws/install/depthai_ros_driver/share/depthai_ros_driver/config/camera.yaml
+    device_cgroup_rules:
+      - 'c 189:* rmw'
+    command: ros2 launch depthai_ros_driver camera.launch.py parent_frame:=oak-1-base-frame
+
+  image_decompressor:
+    image: husarion/image-transport:humble
+    command: >
+      ros2 run image_transport republish theora raw
+      --ros-args
+      --remap in/theora:=/oak/rgb/image_raw/theora
+      --remap out:=/camera/my_image_raw
+
+  # if you have NVDIA GPU and NVIDIA Container Toolkit, you can replace
+  # "cpu-config" with "gpu-config"
+  interface:
+    image: husarion/image-tools:humble
+    <<: *cpu-config
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    command: ros2 run image_tools showimage --ros-args -p reliability:=best_effort --remap image:=/camera/my_image_raw
+
+  # # if you have NVDIA GPU and NVIDIA Container Toolkit, you can replace
+  # # "cpu-config" with "gpu-config"
+  # interface:
+  #   image: husarion/image-tools:humble
+  #   <<: *cpu-config
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix:rw
+  #   command: ros2 run image_tools showimage --ros-args -p reliability:=best_effort --remap image:=/oak/rgb/image_raw
