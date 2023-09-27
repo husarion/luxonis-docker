@@ -14,10 +14,11 @@ cd depthai-docker/demo/oak-1
 
 3. Pull necessary docker images:
 ```
-docker copmose pull
+docker compose pull
 ```
 
 4. Launch it with the RViz:
 ```
-xhost +local:docker && docker compose up
+xhost +local:docker
+docker compose up
 ```
