@@ -1,0 +1,41 @@
+x-common-config:
+  &common-config
+  network_mode: host
+  ipc: host
+  environment:
+    - FASTRTPS_DEFAULT_PROFILES_FILE=/shm-only.xml
+    - USER
+
+x-cpu-config:
+  &cpu-config
+  env_file: .env.cpu
+
+x-gpu-config:
+  &gpu-config
+  runtime: nvidia
+  env_file: .env.gpu
+
+services:
+  luxonis:
+    image: husarion/depthai:humble-ffmpeg-support
+    <<: *common-config
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ./camera.params.yaml:/camera.params.yaml
+    device_cgroup_rules:
+      - 'c 189:* rmw'
+    command: >
+      ros2 launch depthai_ros_driver camera.launch.py 
+        parent_frame:=oak-1-base-frame 
+        params_file:=/camera.params.yaml
+
+  rviz:
+    image: husarion/rviz2:humble-11.2.9-20240111
+    <<: 
+      - *common-config
+      - *gpu-config
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./default.rviz:/default.rviz
+      - ./rviz.launch.py:/rviz.launch.py
+    command: ros2 launch /rviz.launch.py

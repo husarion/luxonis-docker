@@ -16,13 +16,15 @@ RUN apt-get update && apt-get install -y \
         python3-rosdep
 
 # install everything needed
-RUN git clone https://github.com/luxonis/depthai-ros.git /ros2_ws/src -b ${DEPTHAI_ROS_RELEASE} && \
+RUN git clone https://github.com/luxonis/depthai-ros.git src/depthai-ros -b ${DEPTHAI_ROS_RELEASE} && \
+    git clone https://github.com/ros-misc-utilities/ffmpeg_image_transport.git src/ffmpeg_image_transport && \
+    vcs import src < src/ffmpeg_image_transport/ffmpeg_image_transport.repos && \
     rm -rf /etc/ros/rosdep/sources.list.d/20-default.list && \
 	rosdep init && \
     rosdep update --rosdistro $ROS_DISTRO && \
     rosdep install --from-paths src --ignore-src -r -y && \
     source /opt/ros/$ROS_DISTRO/setup.bash && \
-    MAKEFLAGS="-j1 -l1" colcon build
+    MAKEFLAGS="-j1 -l1" colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 FROM husarnet/ros:${PREFIX}${ROS_DISTRO}-ros-core
 
