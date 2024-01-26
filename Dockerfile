@@ -24,7 +24,7 @@ RUN git clone https://github.com/luxonis/depthai-ros.git src/depthai-ros -b ${DE
     rosdep update --rosdistro $ROS_DISTRO && \
     rosdep install --from-paths src --ignore-src -r -y && \
     source /opt/ros/$ROS_DISTRO/setup.bash && \
-    MAKEFLAGS="-j1 -l1" colcon build
+    MAKEFLAGS="-j1 -l1" colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 FROM husarnet/ros:${PREFIX}${ROS_DISTRO}-ros-core
 
