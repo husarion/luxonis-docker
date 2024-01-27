@@ -39,3 +39,23 @@ services:
       - ./default.rviz:/default.rviz
       - ./rviz.launch.py:/rviz.launch.py
     command: ros2 launch /rviz.launch.py
+
+  # ros2router:
+  #   image: husarnet/ros2router:1.6.3
+  #   <<: *common-config
+  #   volumes:
+  #     - ./config.yaml:/config.yaml
+  #   environment:
+  #     - AUTO_CONFIG=FALSE
+  #     - USER
+  #     # ==========================
+  #     # envs for Husarnet setup
+  #     # ==========================
+  #     - ROS_DISCOVERY_SERVER=${ROBOT_NAMESPACE}:11811
+  #     - DISCOVERY_SERVER_ID=10 # need to be different as ros2router on ROSbot
+  #     # ==========================
+  #     # envs for LAN setup
+  #     # ==========================
+  #     # - ROS_LOCALHOST_ONLY=0
+  #     # - HUSARNET_PARTICIPANT_ENABLED=false
+  #   command: ddsrouter -c /config.yaml

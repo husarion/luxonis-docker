@@ -1,0 +1,17 @@
+version: v3.0
+participants:
+  - name: LocalUdpParticipant
+    kind: local
+    domain: 0
+    transport: udp
+    ignore-participant-flags: no_filter
+    whitelist-interfaces:
+      - 127.0.0.1
+  - name: LocalShmParticipant
+    kind: local
+    domain: 0
+    transport: shm
+allowlist:
+  - name: "rt/*"
+blocklist: []
+builtin-topics: []
