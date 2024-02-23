@@ -36,7 +36,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ros_distro: ["iron", "humble"]
+        # ros_distro: ["iron", "humble"]
+        ros_distro: ["humble"]
 
     steps:
 
