@@ -39,13 +39,13 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     command: ros2 run image_tools showimage --ros-args -p reliability:=best_effort --remap image:=/camera/my_image_raw
 
-  # # How to fix QoS in rqt to view the camera image: https://github.com/ros-visualization/rqt/issues/187#issuecomment-1068519939 
+  # # How to fix QoS in rqt to view the camera image: https://github.com/ros-visualization/rqt/issues/187#issuecomment-1068519939
   # rqt:
   #   build: .
   #   <<: *cpu-config
   #   volumes:
   #     - /tmp/.X11-unix:/tmp/.X11-unix:rw
-  #   command: sleep 3600   
+  #   command: sleep 3600
 
   # # if you have NVDIA GPU and NVIDIA Container Toolkit, you can replace
   # # "cpu-config" with "gpu-config"

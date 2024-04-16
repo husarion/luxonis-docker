@@ -1,3 +1,4 @@
+---
 /oak:
   ros__parameters:
     # qos_overrides:  # group for all the qos settings
@@ -35,7 +36,7 @@
       i_width: 640
       i_height: 360
       i_interleaved: false
-      i_isp_den: 3 
+      i_isp_den: 3
       i_isp_num: 2
       i_keep_preview_aspect_ratio: true
       i_low_bandwidth: false
