@@ -7,7 +7,7 @@ services:
     device_cgroup_rules:
       - 'c 189:* rmw'
     command: >
-      ros2 launch depthai_ros_driver rgbd_pcl.launch.py
+      ros2 launch depthai_ros_driver camera.launch.py
         camera_model:=OAK-D-LITE
         params_file:=/config.yaml
 
