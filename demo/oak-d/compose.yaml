@@ -3,13 +3,13 @@ services:
     image: husarion/depthai:humble-2.8.1
     volumes:
       - /dev/bus/usb:/dev/bus/usb
-      - ./rgbd-pcl.yaml:/rgbd-pcl.yaml
+      - ./config.yaml:/config.yaml
     device_cgroup_rules:
       - 'c 189:* rmw'
     command: >
       ros2 launch depthai_ros_driver rgbd_pcl.launch.py
         camera_model:=OAK-D-LITE
-        params_file:=/rgbd-pcl.yaml
+        params_file:=/config.yaml
 
   rviz:
     image: husarion/rviz2:humble-11.2.6
