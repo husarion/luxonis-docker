@@ -25,13 +25,13 @@ services:
     device_cgroup_rules:
       - 'c 189:* rmw'
     command: >
-      ros2 launch depthai_ros_driver camera.launch.py 
-        parent_frame:=oak-1-base-frame 
+      ros2 launch depthai_ros_driver camera.launch.py
+        parent_frame:=oak-1-base-frame
         params_file:=/camera.params.yaml
 
   rviz:
     image: husarion/rviz2:humble-11.2.9-20240111
-    <<: 
+    <<:
       - *common-config
       - *gpu-config
     volumes:

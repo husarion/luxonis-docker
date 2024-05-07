@@ -1,3 +1,4 @@
+---
 /oak:
   ros__parameters:
     # qos_overrides:  # group for all the qos settings
@@ -26,7 +27,7 @@
       i_calibration_file: ''
       i_enable_preview: false
       i_fps: 30.0
-      i_width: 640    
+      i_width: 640
       i_height: 360
       i_interleaved: false
       i_keep_preview_aspect_ratio: true
